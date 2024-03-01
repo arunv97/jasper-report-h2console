@@ -1,13 +1,13 @@
 package com.arun.pdfreport.model;
 
 import jakarta.persistence.*;
-import java.util.Map;
+import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @NoArgsConstructor
+@Entity
 @Table(name = "portfolio")
 public class Portfolio {
 
@@ -19,10 +19,8 @@ public class Portfolio {
     @JoinColumn(name = "account_number", referencedColumnName = "account_number")
     private Account account;
 
-    @ElementCollection
-    @CollectionTable(name = "banking_fees")
-    @MapKeyColumn(name = "fee_key")
-    @Column(name = "fee_value")
-    private Map<String, BankingFee> bankingFees;
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BankingFee> bankingFees;
+
     // Other fields and methods...
 }

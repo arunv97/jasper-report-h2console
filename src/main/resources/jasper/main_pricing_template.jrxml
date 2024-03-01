@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="main_template" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-    <parameter name="SUBREPORT_DIR" class="java.lang.String"/>
-    <parameter name="AccountNumber" class="java.lang.String"/>
-    <parameter name="Portfolios" class="java.util.List"/>
-    <detail>
-        <band height="50" splitType="Stretch">
-            <textField>
-                <reportElement x="0" y="0" width="100" height="30"/>
-                <textElement textAlignment="Center"/>
-                <textFieldExpression><![CDATA["Account Number: " + $P{AccountNumber}]]></textFieldExpression>
-            </textField>
-        </band>
-        <band height="100" splitType="Stretch">
-            <subreport>
-                <reportElement x="0" y="0" width="555" height="100"/>
-                <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{Portfolios})]]></dataSourceExpression>
-                <subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "banking_service_fe6e.jasper"]]></subreportExpression>
-            </subreport>
-        </band>
-        <band height="100" splitType="Stretch">
-            <subreport>
-                <reportElement x="0" y="0" width="555" height="100"/>
-                <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{Portfolios})]]></dataSourceExpression>
-                <subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "additional_banking_service_fee.jasper"]]></subreportExpression>
-            </subreport>
-        </band>
-    </detail>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="main_pricing_template" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="091e96ca-b769-43ad-98e8-ae443b21ae3b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<parameter name="AccountNumber" class="java.lang.String"/>
+	<parameter name="Portfolios" class="java.util.List"/>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="30" uuid="2efe8c72-b291-48b5-b117-0a70df01494d"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pricing Summary Report]]></text>
+			</staticText>
+		</band>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="4d085d0d-3e1b-41a7-85c7-458c52dc0a9d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Account Number: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="20" width="555" height="10" uuid="7a6b7c9d-d4e5-4a41-b6ce-26349273c3db"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{AccountNumber}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="100" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="100" uuid="b91ca188-dfad-4ea9-bdb9-2f86a902bb02"/>
+				<subreportParameter name="SUBREPORT_DIR">
+        			<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+    			</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{Portfolios})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "portfolio_sub_report.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
 </jasperReport>

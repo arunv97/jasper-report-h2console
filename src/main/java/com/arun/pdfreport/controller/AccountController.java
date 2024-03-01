@@ -1,10 +1,15 @@
 package com.arun.pdfreport.controller;
 
 import com.arun.pdfreport.model.Account;
-import com.arun.pdfreport.model.Portfolio;
+import com.arun.pdfreport.model.BankingFee;
 import com.arun.pdfreport.service.AccountService;
+
+import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -23,95 +28,66 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/jasper")
 public class AccountController {
 
-  private static final Logger logger = LoggerFactory.getLogger(
-    AccountController.class
-  );
+  private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
   @Autowired
   private AccountService accountService;
 
-  @GetMapping(
-    value = "/{accountNumber}",
-    produces = MediaType.APPLICATION_PDF_VALUE
-  )
-  public ResponseEntity<byte[]> generateReport(
-    @PathVariable String accountNumber
-  ) {
+  @GetMapping(value = "/{accountNumber}", produces = MediaType.APPLICATION_PDF_VALUE)
+  public ResponseEntity<byte[]> generateReport(@PathVariable String accountNumber) {
     try {
       Account account = accountService.getAccountByNumber(accountNumber);
-      logger.debug("Account retrieved: {}", account);
-
       if (account == null) {
         logger.info("Account not found for account number: {}", accountNumber);
         return ResponseEntity.notFound().build();
       }
- // Log portfolios in a readable format
-    if (account.getPortfolios() != null) {
-        for (Portfolio portfolio : account.getPortfolios()) {
-            logger.debug("Portfolio: {}", portfolio);
-        }
-    } else {
-        logger.debug("No portfolios found for account number: {}", accountNumber);
-    }
-      // Load the main report template
-      InputStream mainTemplate = new ClassPathResource(
-        "jasper/main_pricing_template.jrxml"
-      )
-        .getInputStream();
-      JasperReport jasperReport = JasperCompileManager.compileReport(
-        mainTemplate
-      );
 
-      // Prepare the data for the report
-      Map<String, Object> parameters = new HashMap<>();
-      parameters.put("AccountNumber", account.getAccountNumber());
-      // Log parameters
-      logger.debug(
-        "Parameters passed to Jasper report before sub: {}",
-        parameters
-      );
+      Map<String, Object> parameters = prepareParameters(account);
 
-      // Add the SUBREPORT_DIR parameter
-      parameters.put("SUBREPORT_DIR", "jasper/");
+      JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource((List) parameters.get("Portfolios"));
 
-      // Log parameters
-      logger.debug("Parameters passed to Jasper report: {}", parameters);
+      JasperPrint jasperPrint = createJasperPrint(parameters, dataSource);
 
-      // Use JRBeanCollectionDataSource for the list of Portfolios
-      JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(
-        account.getPortfolios()
-      );
-
-      // Log portfolios
-      logger.debug(
-        "Portfolios passed to Jasper report: {}",
-        account.getPortfolios()
-      );
-      logger.debug("Data source for report: {}", dataSource);
-      // Fill the report with data
-      JasperPrint jasperPrint = JasperFillManager.fillReport(
-        jasperReport,
-        parameters,
-        dataSource
-      );
-
-      // Export the report to a PDF format
       byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
 
-      // Log the size of the generated PDF
-      logger.debug("Generated PDF size: {} bytes", pdfBytes.length);
-
-      return ResponseEntity
-        .ok()
-        .contentType(MediaType.APPLICATION_PDF)
-        .body(pdfBytes);
+      return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(pdfBytes);
     } catch (Exception e) {
-      logger.error(
-        "Error generating report for account number: {}",
-        accountNumber,
-        e
-      );
+      logger.error("Error generating report for account number: {}", accountNumber, e);
       return ResponseEntity.status(500).body(null);
     }
+  }
+
+  private Map<String, Object> prepareParameters(Account account) {
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("AccountNumber", account.getAccountNumber());
+    parameters.put("SUBREPORT_DIR", "jasper/");
+    parameters.put("Portfolios", mapPortfolios(account));
+    return parameters;
+}
+
+  private List<Map<String, Object>> mapPortfolios(Account account) {
+    List<Map<String, Object>> portfolioDataList = new ArrayList<>();
+    account.getPortfolios().forEach(portfolio -> {
+      Map<String, Object> portfolioData = new HashMap<>();
+      portfolioData.put("portfolioNumber", portfolio.getPortfolioNumber());
+      portfolioData.put("bankingFees", portfolio.getBankingFees());
+
+      BigDecimal additionalBankingFees = portfolio.getBankingFees().stream()
+          .filter(fee -> "special_mailing".equals(fee.getFeeTypeCode()) || "reporting_fee".equals(fee.getFeeTypeCode()))
+          .map(BankingFee::getEffectivePrice)
+          .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+      portfolioData.put("additionalBankingFees", List.of(additionalBankingFees));
+      portfolioDataList.add(portfolioData);
+    });
+
+    return portfolioDataList;
+  }
+
+  private JasperPrint createJasperPrint(Map<String, Object> parameters, JRBeanCollectionDataSource dataSource)
+      throws JRException, IOException {
+    InputStream mainTemplate = new ClassPathResource("jasper/main_pricing_template.jrxml").getInputStream();
+    JasperReport jasperReport = JasperCompileManager.compileReport(mainTemplate);
+    return JasperFillManager.fillReport(jasperReport, parameters, dataSource);
   }
 }
