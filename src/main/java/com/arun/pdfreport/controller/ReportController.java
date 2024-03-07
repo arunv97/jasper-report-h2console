@@ -37,7 +37,8 @@ public class ReportController {
         JasperReport subReport = JasperCompileManager.compileReport(subReportStream);
         // Prepare the parameters for the main report
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("AccountNumber", "12345"); // Example portfolio number
+        parameters.put("AccountNumber", "SG091212"); // Example portfolio number
+        
         parameters.put("subReport", subReport);
         parameters.put("subReportParameter", getSubReportParameter());
 
@@ -73,6 +74,7 @@ public class ReportController {
     private static Map getSubReportParameter() {
         Map<String, Object> subParameter = new HashMap<>();
         subParameter.put("subReportDataSet", getSubDataSource());
+        subParameter.put("PortfolioNumber", "SG091212-01");
         return subParameter;
     }
 }

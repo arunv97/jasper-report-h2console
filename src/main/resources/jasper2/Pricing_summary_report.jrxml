@@ -30,7 +30,7 @@
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["Portfolio Number:"+$P{AccountNumber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Account Number:"+$P{AccountNumber}]]></textFieldExpression>
 			</textField>
 			<subreport>
 				<reportElement x="0" y="17" width="555" height="136" uuid="e894d1ab-bac0-4c3d-8dc2-1603d0e5429e"/>

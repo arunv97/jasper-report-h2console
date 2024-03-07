@@ -30,7 +30,6 @@
 		</box>
 	</style>
 	<subDataset name="SubreportDataSet" uuid="7cf92539-1271-4320-aeec-656e233098a3">
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
@@ -39,13 +38,20 @@
 		<field name="effectivePrice" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="subReportDataSet" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="PortfolioNumber" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
 	<detail>
 		<band height="273" splitType="Stretch">
+		<textField>
+				<reportElement x="0" y="0" width="191" height="21" uuid="200956a7-aedc-4d7b-bceb-0db7046f60d7"/>
+				
+				<textElement/>
+    <textFieldExpression><![CDATA["Portfolio Number:"+$P{PortfolioNumber}]]></textFieldExpression>
+			</textField>
 			<componentElement>
-				<reportElement x="0" y="73" width="555" height="200" uuid="27d8c475-8058-45d4-968b-1d9200db1497">
+				<reportElement x="0" y="36" width="555" height="200" uuid="27d8c475-8058-45d4-968b-1d9200db1497">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
