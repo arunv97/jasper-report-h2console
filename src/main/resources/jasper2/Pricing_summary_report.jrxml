@@ -4,11 +4,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="AccountNumber" class="java.lang.String"/>
 	<parameter name="subReport" class="net.sf.jasperreports.engine.JasperReport"/>
-	<parameter name="subReportParameter" class="java.util.Map"/>
-	<parameter name="eventName" class="java.lang.String"/>
-	<queryString>
-		<![CDATA[]]>
-	</queryString>
+	<field name="portfolios" class="java.util.List"/>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
@@ -34,13 +30,9 @@
 			</textField>
 			<subreport>
 				<reportElement x="0" y="17" width="555" height="136" uuid="e894d1ab-bac0-4c3d-8dc2-1603d0e5429e"/>
-				<parametersMapExpression><![CDATA[$P{subReportParameter}]]></parametersMapExpression>
-				<dataSourceExpression><![CDATA[new JREmptyDataSource()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{portfolios})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{subReport}]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
 </jasperReport>

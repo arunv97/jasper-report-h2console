@@ -1,6 +1,8 @@
 package com.arun.pdfreport.controller;
 
 import com.arun.pdfreport.model.Fee;
+import com.arun.pdfreport.model.Portfolio;
+import com.arun.pdfreport.model.PortfolioData;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,14 +40,13 @@ public class ReportController {
         JasperReport subReport = JasperCompileManager.compileReport(subReportStream);
         // Prepare the parameters for the main report
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("AccountNumber", "SG091212"); // Example portfolio number
-        
+        parameters.put("AccountNumber", "SG091212");
         parameters.put("subReport", subReport);
-        parameters.put("subReportParameter", getSubReportParameter());
-
+        
+        JRBeanCollectionDataSource dataSource = getPortfolioData();
         // Fill the main report with data
         JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters,
-                new JREmptyDataSource());
+        dataSource);
 
         // Export the filled report to a PDF file
         byte[] pdfBytes = JasperExportManager.exportReportToPdf(jasperPrint);
@@ -60,21 +62,34 @@ public class ReportController {
 
     }
 
-    private static JRBeanCollectionDataSource getSubDataSource() {
-        List<Fee> dataList = new ArrayList<>();
-        // Fee fee1 = new Fee("Feetype1", "1000", "1002");
-        // dataList.add(fee1);
-        dataList.add(new Fee("Management Fee", "100.00", "90.00"));
-        dataList.add(new Fee("Performance Fee", "200.00", "180.00"));
-        dataList.add(new Fee("Administration Fee", "50.00", "45.00"));
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(dataList);
-        return dataSource;
-    }
+    private static JRBeanCollectionDataSource getPortfolioData() {
+        List<Portfolio> portfolios = new ArrayList<>();
 
-    private static Map getSubReportParameter() {
-        Map<String, Object> subParameter = new HashMap<>();
-        subParameter.put("subReportDataSet", getSubDataSource());
-        subParameter.put("PortfolioNumber", "SG091212-01");
-        return subParameter;
+        Portfolio portfolio1 = new Portfolio();
+        portfolio1.setPortfolioNumber("SG091212-01");
+        Map<String, Fee> fees1 = new HashMap<>();
+        fees1.put("BANKING_SERVICE_FEE", new Fee("Banking Service Package", "3000.00", "3000.00"));
+        fees1.put("REPORTING_FEE", new Fee("Reporting Fee", "240.00", "240.00"));
+        fees1.put("SPECIAL_MAILING", new Fee("Special Mailing", "700.00", "700.00"));
+        portfolio1.setBankingFees(fees1);
+        portfolios.add(portfolio1);
+
+        Portfolio portfolio2 = new Portfolio();
+        portfolio2.setPortfolioNumber("SG091212-022");
+        Map<String, Fee> fees2 = new HashMap<>();
+        fees2.put("BANKING_SERVICE_FEE", new Fee("Banking Service Package", "3000.00", "3000.00"));
+        fees2.put("REPORTING_FEE", new Fee("Reporting Fee", "240.00", "240.00"));
+        fees2.put("SPECIAL_MAILING", new Fee("Special Mailing", "700.00", "700.00"));
+        portfolio2.setBankingFees(fees2);
+        portfolios.add(portfolio2);
+
+        PortfolioData portfolioData = new PortfolioData();
+        portfolioData.setPortfolios(portfolios);
+        // gmis
+        //account no
+        List<PortfolioData> accountDto = new ArrayList<>();
+        accountDto.add(portfolioData);
+        System.out.println("accountDto: " + accountDto);
+        return new JRBeanCollectionDataSource(accountDto);
     }
 }

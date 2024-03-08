@@ -29,7 +29,7 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="SubreportDataSet" uuid="7cf92539-1271-4320-aeec-656e233098a3">
+	<subDataset name="FeesDataset" uuid="7cf92539-1271-4320-aeec-656e233098a3">
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
@@ -37,18 +37,13 @@
 		<field name="listPrice" class="java.lang.String"/>
 		<field name="effectivePrice" class="java.lang.String"/>
 	</subDataset>
-	<parameter name="subReportDataSet" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
-	<parameter name="PortfolioNumber" class="java.lang.String"/>
-	<queryString>
-		<![CDATA[]]>
-	</queryString>
+	<field name="portfolioNumber" class="java.lang.String"/>
+	<field name="bankingFees" class="java.util.Map"/>
 	<detail>
 		<band height="273" splitType="Stretch">
-		<textField>
+			<textField>
 				<reportElement x="0" y="0" width="191" height="21" uuid="200956a7-aedc-4d7b-bceb-0db7046f60d7"/>
-				
-				<textElement/>
-    <textFieldExpression><![CDATA["Portfolio Number:"+$P{PortfolioNumber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Portfolio Number:"+$F{portfolioNumber}]]></textFieldExpression>
 			</textField>
 			<componentElement>
 				<reportElement x="0" y="36" width="555" height="200" uuid="27d8c475-8058-45d4-968b-1d9200db1497">
@@ -58,8 +53,8 @@
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="SubreportDataSet" uuid="9f3df7e0-07f4-4fdb-b8ce-0ac7e3d291c6">
-						<dataSourceExpression><![CDATA[$P{subReportDataSet}]]></dataSourceExpression>
+					<datasetRun subDataset="FeesDataset" uuid="9f3df7e0-07f4-4fdb-b8ce-0ac7e3d291c6">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{bankingFees}.values())]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="100" uuid="6a9bae92-1ee3-41ae-bc45-8780bd67ccbf">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>

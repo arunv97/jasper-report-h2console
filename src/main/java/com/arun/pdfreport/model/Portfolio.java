@@ -4,11 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Fee {
-    private String feeType;
-    private String listPrice;
-    private String effectivePrice;
+public class Portfolio {
+    private String portfolioNumber;
+    private Map<String, Fee> bankingFees;
 }
