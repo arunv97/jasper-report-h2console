@@ -55,6 +55,7 @@
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="FeesDataset" uuid="9f3df7e0-07f4-4fdb-b8ce-0ac7e3d291c6">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{bankingFees}.values())]]></dataSourceExpression>
+						<!-- <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($F{bankingFees}.get("BANKING_SERVICE_FEE")))]]></dataSourceExpression> to show one fees --> 
 					</datasetRun>
 					<jr:column width="100" uuid="6a9bae92-1ee3-41ae-bc45-8780bd67ccbf">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
