@@ -1,8 +1,9 @@
 package com.arun.pdfreport.controller;
 
 import com.arun.pdfreport.model.Fee;
-import com.arun.pdfreport.model.Portfolio;
-import com.arun.pdfreport.model.PortfolioData;
+import com.arun.pdfreport.model.PortfolioDTO;
+import com.arun.pdfreport.model.AccountDTO;
+import com.arun.pdfreport.model.PortfolioDTO;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -39,7 +40,7 @@ public class ReportController {
         JasperReport subReport = JasperCompileManager.compileReport(subReportStream);
         // Prepare the parameters for the main report
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("AccountNumber", "SG091212");
+//        parameters.put("AccountNumber", "SG091212");
         parameters.put("subReport", subReport);
         
         JRBeanCollectionDataSource dataSource = getPortfolioData();
@@ -62,9 +63,9 @@ public class ReportController {
     }
 
     private static JRBeanCollectionDataSource getPortfolioData() {
-        List<Portfolio> portfolios = new ArrayList<>();
+        List<PortfolioDTO> portfolios = new ArrayList<>();
 
-        Portfolio portfolio1 = new Portfolio();
+        PortfolioDTO portfolio1 = new PortfolioDTO();
         portfolio1.setPortfolioNumber("SG091212-01");
         Map<String, Fee> fees1 = new HashMap<>();
         fees1.put("BANKING_SERVICE_FEE", new Fee("Banking Service Package", "1299.00", "1222.00"));
@@ -73,7 +74,7 @@ public class ReportController {
         portfolio1.setBankingFees(fees1);
         portfolios.add(portfolio1);
 
-        Portfolio portfolio2 = new Portfolio();
+        PortfolioDTO portfolio2 = new PortfolioDTO();
         portfolio2.setPortfolioNumber("SG091212-022");
         Map<String, Fee> fees2 = new HashMap<>();
         fees2.put("BANKING_SERVICE_FEE", new Fee("Banking Service Package", "1200.00", "1000.00"));
@@ -82,7 +83,7 @@ public class ReportController {
         portfolio2.setBankingFees(fees2);
         portfolios.add(portfolio2);
 
-        Portfolio portfolio3 = new Portfolio();
+        PortfolioDTO portfolio3 = new PortfolioDTO();
         portfolio3.setPortfolioNumber("SG091212-03");
         Map<String, Fee> fees3 = new HashMap<>();
         fees3.put("BANKING_SERVICE_FEE", new Fee("Banking Service Package", "200.00", "20.00"));
@@ -91,27 +92,34 @@ public class ReportController {
         portfolio3.setBankingFees(fees3);
         portfolios.add(portfolio3);
 
-        PortfolioData portfolioData = new PortfolioData();
-        portfolioData.setPortfolios(portfolios);
-        // gmis
-        //account no
-        List<PortfolioData> accountDto = new ArrayList<>();
-        accountDto.add(portfolioData);
-        System.out.println("accountDto: " + accountDto);
-        return new JRBeanCollectionDataSource(accountDto);
+        List<PortfolioDTO> portfolioDTOList = new ArrayList<>();
+        portfolioDTOList.add(portfolio1);
+        portfolioDTOList.add(portfolio2);
+        portfolioDTOList.add(portfolio3);
+
+        AccountDTO accountDto = new AccountDTO();
+        accountDto.setAccountNumber("SG0976123");
+        accountDto.setPortfolioDTOList(portfolioDTOList);
+
+        List<AccountDTO> accountDtoList = new ArrayList<>();
+        accountDtoList.add(accountDto);
+        System.out.println("accountDtoList: " + accountDtoList);
+        return new JRBeanCollectionDataSource(accountDtoList);
     }
 }
 
-// PortfolioData
+// accountDto (List<PortfolioData>)
 // |
-// |-- List<Portfolio>
+// |-- PortfolioData
 //     |
-//     |-- Portfolio
+//     |-- List<Portfolio> portfolios
 //         |
-//         |-- String portfolioNumber
-//         |
-//         |-- Map<String, Fee> bankingFees
+//         |-- Portfolio
 //             |
-//             |-- "BANKING_SERVICE_FEE" -> Fee(feeType, listPrice, effectivePrice)
-//             |-- "REPORTING_FEE" -> Fee(feeType, listPrice, effectivePrice)
-//             |-- "SPECIAL_MAILING" -> Fee(feeType, listPrice, effectivePrice)
+//             |-- String portfolioNumber
+//             |
+//             |-- Map<String, Fee> bankingFees
+//                 |
+//                 |-- "BANKING_SERVICE_FEE" -> Fee(feeType, listPrice, effectivePrice)
+//                 |-- "REPORTING_FEE" -> Fee(feeType, listPrice, effectivePrice)
+//                 |-- "SPECIAL_MAILING" -> Fee(feeType, listPrice, effectivePrice)

@@ -9,7 +9,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Portfolio {
+public class PortfolioDTO {
     private String portfolioNumber;
     private Map<String, Fee> bankingFees;
 }
