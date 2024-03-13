@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Pricing_summary_report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23ba4304-cfec-40f3-b2aa-6ba18082720b">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<parameter name="subReport" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["jasper/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="portfolioDTOList" class="java.util.List"/>
 	<field name="accountNumber" class="java.lang.String"/>
-	<field name="portfolioDTOList" class="java.util.List"/>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
@@ -30,8 +31,14 @@
 			</textField>
 			<subreport>
 				<reportElement x="0" y="17" width="555" height="136" uuid="e894d1ab-bac0-4c3d-8dc2-1603d0e5429e"/>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{portfolioDTOList})]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{subReport}]]></subreportExpression>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="portfolioDTOList">
+					<subreportParameterExpression><![CDATA[$P{portfolioDTOList}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{portfolioDTOList})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Sub_report.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

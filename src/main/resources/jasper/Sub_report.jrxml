@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Sub_report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bc26b82b-d17b-46f9-9f8a-d2df413c58fb">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -37,6 +36,10 @@
 		<field name="listPrice" class="java.lang.String"/>
 		<field name="effectivePrice" class="java.lang.String"/>
 	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["jasper/"]]></defaultValueExpression>
+	</parameter>
+	<field name="portfolioDTOList" class="java.util.List"/>
 	<field name="portfolioNumber" class="java.lang.String"/>
 	<field name="bankingFees" class="java.util.Map"/>
 	<detail>
@@ -45,6 +48,11 @@
 				<reportElement x="0" y="0" width="191" height="21" uuid="200956a7-aedc-4d7b-bceb-0db7046f60d7"/>
 				<textFieldExpression><![CDATA["Portfolio Number:"+$F{portfolioNumber}]]></textFieldExpression>
 			</textField>
+			<subreport>
+				<reportElement x="0" y="17" width="555" height="136" uuid="e894d1ab-bac0-4c3d-8dc2-1603d0e5429e"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{portfolioDTOList})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Pricing_summary_report_summary_sub_report.jasper"]]></subreportExpression>
+			</subreport>
 			<componentElement>
 				<reportElement x="0" y="36" width="555" height="200" uuid="27d8c475-8058-45d4-968b-1d9200db1497">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
@@ -55,7 +63,6 @@
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="FeesDataset" uuid="9f3df7e0-07f4-4fdb-b8ce-0ac7e3d291c6">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{bankingFees}.values())]]></dataSourceExpression>
-						<!-- <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(Arrays.asList($F{bankingFees}.get("BANKING_SERVICE_FEE")))]]></dataSourceExpression> to show one fees --> 
 					</datasetRun>
 					<jr:column width="100" uuid="6a9bae92-1ee3-41ae-bc45-8780bd67ccbf">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
