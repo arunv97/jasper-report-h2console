@@ -5,6 +5,7 @@
 		<defaultValueExpression><![CDATA["jasper/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="portfolioDTOList" class="java.util.List"/>
+	<field name="portfolioDTOList" class="java.util.List"/>
 	<field name="accountNumber" class="java.lang.String"/>
 	<title>
 		<band height="79" splitType="Stretch">
@@ -18,7 +19,7 @@
 	<detail>
 		<band height="272" splitType="Stretch">
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="0" y="0" width="127" height="17" isPrintWhenDetailOverflows="true" uuid="d9b711d9-78b1-42db-8b15-b3c68daeb2dc">
+				<reportElement mode="Transparent" x="10" y="0" width="127" height="17" isPrintWhenDetailOverflows="true" uuid="d9b711d9-78b1-42db-8b15-b3c68daeb2dc">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
@@ -37,7 +38,7 @@
 				<subreportParameter name="portfolioDTOList">
 					<subreportParameterExpression><![CDATA[$P{portfolioDTOList}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{portfolioDTOList})]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{portfolioDTOList})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Sub_report.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
