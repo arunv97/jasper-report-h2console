@@ -4,7 +4,6 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["jasper/"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="portfolioDTOList" class="java.util.List"/>
 	<field name="portfolioDTOList" class="java.util.List"/>
 	<field name="accountNumber" class="java.lang.String"/>
 	<title>
@@ -36,7 +35,7 @@
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="portfolioDTOList">
-					<subreportParameterExpression><![CDATA[$P{portfolioDTOList}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$F{portfolioDTOList}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{portfolioDTOList})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Sub_report.jasper"]]></subreportExpression>

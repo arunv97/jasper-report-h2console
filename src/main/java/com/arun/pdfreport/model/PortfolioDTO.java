@@ -11,7 +11,9 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PortfolioDTO {
+    private Map<String, Map<String, Fee>> bankingFees;
+    private Summary summary;
+    private String bookingCenter;
+    private Owner owner;
     private String portfolioNumber;
-    private Map<String, Fee> bankingFees;
-    private List<PortfolioSummaryDTO> portfolioSummaryDTOList;
 }

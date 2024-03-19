@@ -39,7 +39,7 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["jasper/"]]></defaultValueExpression>
 	</parameter>
-	<field name="portfolioSummaryDTOList" class="java.util.List"/>
+	<field name="portfolioDTOList" class="java.util.List"/>
 	<field name="portfolioNumber" class="java.lang.String"/>
 	<field name="bankingFees" class="java.util.Map"/>
 	<detail>
@@ -50,7 +50,7 @@
 			</textField>
 			<subreport>
 				<reportElement positionType="Float" x="0" y="17" width="555" height="33" uuid="e894d1ab-bac0-4c3d-8dc2-1603d0e5429e"/>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{portfolioSummaryDTOList})]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{portfolioDTOList})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+ "Pricing_summary_report_summary_sub_report.jasper"]]></subreportExpression>
 			</subreport>
 			<componentElement>

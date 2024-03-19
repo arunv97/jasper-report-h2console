@@ -4,13 +4,13 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="portfolioId" class="java.lang.String"/>
-	<field name="serviceModel" class="java.lang.String"/>
-	<field name="mandateType" class="java.lang.String"/>
+	<field name="portfolioNumber" class="java.lang.String"/>
+	<field name="summary.serviceModel.desc" class="java.lang.String"/>
+	<field name="summary.mandateType" class="java.lang.String"/>
 	<field name="bookingCenter" class="java.lang.String"/>
-	<field name="rmName" class="java.lang.String"/>
-	<field name="nextReviewDate" class="java.lang.String"/>
-	<field name="efaAgentCode" class="java.lang.String"/>
+	<field name="owner.rmFullName" class="java.lang.String"/>
+	<field name="summary.nextReviewDate" class="java.lang.String"/>
+	<field name="summary.efaAgentCode" class="java.lang.String"/>
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<frame>
@@ -35,7 +35,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{portfolioId}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{portfolioNumber}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -64,7 +64,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{serviceModel}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{summary.serviceModel.desc}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
@@ -89,7 +89,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{mandateType}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{summary.mandateType}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
@@ -139,7 +139,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{rmName}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{owner.rmFullName}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
@@ -164,7 +164,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{nextReviewDate}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{summary.nextReviewDate}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
@@ -189,7 +189,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{efaAgentCode}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{summary.efaAgentCode}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
