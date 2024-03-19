@@ -25,11 +25,9 @@ public class ReportService {
         summary1.setServiceModel("DummyServiceModel1");
         summary1.setBookingCenter("DummyBookingCenter1");
         summary1.setEfaAgentCode("DummyEfaAgentCode1");
-        summary1.setInvestmentStrategy("DummyInvestmentStrategy1");
         summary1.setMandateType("DummyMandateType1");
-        summary1.setRm("DummyRm1");
-        summary1.setRmTeamName("DummyRmTeamName1");
-        summary1.setPeriodReviewDate("DummyPeriodReviewDate1");
+        summary1.setRmName("DummyRm1");
+        summary1.setNextReviewDate("DummyPeriodReviewDate1");
         portfolioSummaryDTOList.add(summary1);
 
         PortfolioDTO portfolio1 = new PortfolioDTO();

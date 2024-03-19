@@ -51,7 +51,7 @@
 			<subreport>
 				<reportElement positionType="Float" x="0" y="17" width="555" height="33" uuid="e894d1ab-bac0-4c3d-8dc2-1603d0e5429e"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{portfolioSummaryDTOList})]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+ "Pricing_summay_report_summary_sub_report.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+ "Pricing_summary_report_summary_sub_report.jasper"]]></subreportExpression>
 			</subreport>
 			<componentElement>
 				<reportElement positionType="Float" x="0" y="50" width="555" height="200" uuid="27d8c475-8058-45d4-968b-1d9200db1497">
