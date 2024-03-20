@@ -4,11 +4,13 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="portfolioId" class="java.lang.String"/>
-	<field name="serviceModel" class="java.lang.String"/>
+	<field name="portfolioNumber" class="java.lang.String"/>
+	<field name="summary" class="com.arun.pdfreport.model.PortfolioSummaryDTO"/>
+	<field name="owner" class="com.arun.pdfreport.model.Owner"/>
+	<field name="serviceModel" class="com.arun.pdfreport.model.ServiceModel"/>
 	<field name="mandateType" class="java.lang.String"/>
 	<field name="bookingCenter" class="java.lang.String"/>
-	<field name="rmName" class="java.lang.String"/>
+	<field name="rmFullName" class="java.lang.String"/>
 	<field name="nextReviewDate" class="java.lang.String"/>
 	<field name="efaAgentCode" class="java.lang.String"/>
 	<columnHeader>
@@ -35,7 +37,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{portfolioId}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{portfolioNumber}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -64,11 +66,11 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{serviceModel}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{summary.serviceModel.desc}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="0" y="20" width="530" height="20" uuid="ac077018-c34f-4c69-9c43-35a59065d371"/>
+				<reportElement positionType="Float" x="0" y="20" width="530" height="20" uuid="ac077018-c34f-4c69-9c43-35a59065d371"/>
 				<staticText>
 					<reportElement x="0" y="0" width="180" height="20" uuid="8986b412-783c-47a1-bdec-7b78b3c3bb96"/>
 					<box>
@@ -89,11 +91,11 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{mandateType}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{summary}.getMandateType()]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="0" y="40" width="530" height="20" uuid="0a7f38f0-52da-40c6-aae8-09cee56a3111"/>
+				<reportElement positionType="Float" x="0" y="40" width="530" height="20" uuid="0a7f38f0-52da-40c6-aae8-09cee56a3111"/>
 				<staticText>
 					<reportElement x="0" y="0" width="180" height="20" uuid="1d067e2a-d6ee-42ef-82c7-8e29d613dbb0"/>
 					<box>
@@ -114,11 +116,11 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{bookingCenter}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{summary}.getBookingCenter()]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="0" y="60" width="530" height="20" uuid="aef329ac-e068-4379-874a-73c153d7c488"/>
+				<reportElement positionType="Float" x="0" y="60" width="530" height="20" uuid="aef329ac-e068-4379-874a-73c153d7c488"/>
 				<staticText>
 					<reportElement x="0" y="0" width="180" height="20" uuid="49783bcd-5129-4df7-97db-418ae99635ff"/>
 					<box>
@@ -139,11 +141,11 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{rmName}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{owner}.getRmFullName()]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="0" y="80" width="530" height="20" uuid="e82464c3-479c-488c-8f0c-a03f66a2539c"/>
+				<reportElement positionType="Float" x="0" y="80" width="530" height="20" uuid="e82464c3-479c-488c-8f0c-a03f66a2539c"/>
 				<staticText>
 					<reportElement x="0" y="0" width="180" height="20" uuid="745e61ef-fd7c-4039-9933-44b3290dcf1a"/>
 					<box>
@@ -164,11 +166,11 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{nextReviewDate}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{summary}.getNextReviewDate()]]></textFieldExpression>
 				</textField>
 			</frame>
 			<frame>
-				<reportElement x="0" y="100" width="530" height="20" uuid="bb350433-a929-4ff1-b548-438de4e5cb2a"/>
+				<reportElement positionType="Float" x="0" y="100" width="530" height="20" uuid="bb350433-a929-4ff1-b548-438de4e5cb2a"/>
 				<staticText>
 					<reportElement x="0" y="0" width="180" height="20" uuid="5fc3dbd3-cbcb-4b53-8212-1ec0c9c286ec"/>
 					<box>
@@ -189,7 +191,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{efaAgentCode}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{summary}.getEfaAgentCode()]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

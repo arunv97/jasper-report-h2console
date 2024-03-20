@@ -4,11 +4,12 @@ import lombok.Data;
 
 @Data
 public class PortfolioSummaryDTO {
-    private String portfolioId;
-    private String serviceModel;
+    private ServiceModel serviceModel;
     private String mandateType;
+    private String periodicReviewDate;
+    private String portfolioId;
     private String bookingCenter;
-    private String rmName;
     private String nextReviewDate;
     private String efaAgentCode;
 }
+

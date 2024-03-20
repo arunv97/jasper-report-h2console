@@ -4,9 +4,8 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["jasper/"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="portfolioDTOList" class="java.util.List"/>
-	<field name="portfolioDTOList" class="java.util.List"/>
 	<field name="accountNumber" class="java.lang.String"/>
+	<field name="portfolioDTOList" class="java.util.List"/>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
@@ -19,24 +18,21 @@
 	<detail>
 		<band height="272" splitType="Stretch">
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="10" y="0" width="127" height="17" isPrintWhenDetailOverflows="true" uuid="d9b711d9-78b1-42db-8b15-b3c68daeb2dc">
+				<reportElement mode="Transparent" x="10" y="0" width="170" height="30" isPrintWhenDetailOverflows="true" uuid="d9b711d9-78b1-42db-8b15-b3c68daeb2dc">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 				</reportElement>
-				<box topPadding="1" leftPadding="1" bottomPadding="4" rightPadding="1">
-					<pen lineWidth="0.5" lineStyle="Solid"/>
-				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA["Account Number:"+$F{accountNumber}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="0" y="17" width="555" height="136" uuid="e894d1ab-bac0-4c3d-8dc2-1603d0e5429e"/>
+				<reportElement x="0" y="120" width="555" height="136" uuid="e894d1ab-bac0-4c3d-8dc2-1603d0e5429e"/>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="portfolioDTOList">
-					<subreportParameterExpression><![CDATA[$P{portfolioDTOList}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$F{portfolioDTOList}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{portfolioDTOList})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Sub_report.jasper"]]></subreportExpression>
