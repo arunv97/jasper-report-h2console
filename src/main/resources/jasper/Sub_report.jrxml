@@ -9,17 +9,23 @@
 		<fieldDescription><![CDATA[summary]]></fieldDescription>
 	</field>
 	<detail>
-		<band height="300" splitType="Stretch">
+		<band height="310" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="540" height="260" uuid="200956a7-aedc-4d7b-bceb-0db7046f60d7"/>
+				<reportElement x="0" y="0" width="180" height="20" uuid="200956a7-aedc-4d7b-bceb-0db7046f60d7"/>
 				<textFieldExpression><![CDATA["Portfolio Number:"+$F{portfolioNumber}]]></textFieldExpression>
 			</textField>
-		</band>
-		<band height="300" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="540" height="260" uuid="200956a7-aedc-4d7b-bceb-0db7046f60d7"/>
+				<reportElement x="0" y="20" width="240" height="20" uuid="200956a7-aedc-4d7b-bceb-0db7046f60d7"/>
 				<textFieldExpression><![CDATA["Service Model Description: " + $F{summary}.getServiceModel().getDesc()]]></textFieldExpression>
 			</textField>
+			<subreport>
+				<reportElement x="0" y="50" width="550" height="170" uuid="04c7911e-202b-45dd-908a-e994a9a765eb"/>
+				<subreportParameter name="serviceModel">
+					<subreportParameterExpression><![CDATA[$F{summary}.getServiceModel().getDesc()]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Pricing_summary_report_summary_sub_report.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 </jasperReport>

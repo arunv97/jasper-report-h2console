@@ -7,7 +7,7 @@
 	<field name="accountNumber" class="java.lang.String"/>
 	<field name="portfolioDTOList" class="java.util.List"/>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="23" splitType="Stretch">
 			<staticText>
 				<reportElement x="180" y="10" width="201" height="10" uuid="d9494796-454c-45de-b437-9872cb60a7ac"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
@@ -16,9 +16,9 @@
 		</band>
 	</title>
 	<detail>
-		<band height="272" splitType="Stretch">
+		<band height="180" splitType="Stretch">
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="10" y="0" width="170" height="30" isPrintWhenDetailOverflows="true" uuid="d9b711d9-78b1-42db-8b15-b3c68daeb2dc">
+				<reportElement mode="Transparent" x="0" y="0" width="160" height="20" isPrintWhenDetailOverflows="true" uuid="d9b711d9-78b1-42db-8b15-b3c68daeb2dc">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
@@ -27,7 +27,7 @@
 				<textFieldExpression><![CDATA["Account Number:"+$F{accountNumber}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="0" y="120" width="555" height="136" uuid="e894d1ab-bac0-4c3d-8dc2-1603d0e5429e"/>
+				<reportElement x="0" y="30" width="555" height="140" uuid="e894d1ab-bac0-4c3d-8dc2-1603d0e5429e"/>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>
